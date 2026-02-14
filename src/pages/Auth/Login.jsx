@@ -1,19 +1,47 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {googleSignIn, signInUser} = useAuth();
+  const navigate = useNavigate();
 
   const handleTogglePasswordShow = (e) => {
     e.preventDefault();
     setShowPassword(!showPassword);
   };
 
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .caten((error) => {
+        console.log(error);
+      });
+  };
 
-  const handleLogin = () => {};
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signInUser(email, password)
+    .then((result) => {
+        console.log(result.user);
+        e.target.reset();
+        navigate(location.state || "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  };
   return (
     <div className="flex justify-center items-center m-0 my-5 md:my-10">
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl px-3 py-6">

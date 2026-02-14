@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
   const links = (
     <>
       <li>
@@ -19,7 +19,13 @@ const Navbar = () => {
   );
 
   const handleLogout = () =>{
-    
+    logOut()
+      .then(() => {
+        // toast.success("You Logged Out successfully");
+      })
+      .catch((error) => {
+        // toast.error(error.message);
+      });
   }
   return (
     <div className="navbar bg-base-100 shadow-sm">

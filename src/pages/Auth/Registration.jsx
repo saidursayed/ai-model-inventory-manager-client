@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { googleSignIn, createUser, updateUser, setUser, user } = useAuth();
+  const navigate = useNavigate();
 
   const handleTogglePasswordShow = (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const Registration = () => {
           .then(() => {
             // toast.success("Account Created Successfully!");
             setUser({ ...user, displayName: name, photoURL: photo });
-            // navigate("/");
+            navigate("/");
           })
           .catch((error) => {
             // toast.error(`${error.message}`);
@@ -47,6 +48,7 @@ const Registration = () => {
     googleSignIn()
       .then((result) => {
         console.log(result.user);
+        navigate("/");
       })
       .caten((error) => {
         console.log(error);

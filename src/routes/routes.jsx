@@ -9,49 +9,70 @@ import MyModels from "../pages/MyModels/MyModels";
 import MyPurchasedModel from "../pages/MyPurchasedModel/MyPurchasedModel";
 import Login from "../pages/Auth/Login";
 import Registration from "../pages/Auth/Registration";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
     children: [
-        {
-            index: true,
-            Component: Home
-        },
-        {
-            path: "/models",
-            element: <AllModels></AllModels>
-        },
-        {
-            path: "/add-model",
-            element: <AddModel></AddModel>
-        },
-        {
-            path: "/models/:id",
-            element: <ModelDetails></ModelDetails>
-        },
-        {
-            path: "/update-model/:id",
-            element: <UpdateModel></UpdateModel>
-        },
-        {
-            path: "/my-models",
-            element: <MyModels></MyModels>
-        },
-        {
-            path: "/my-purchased-models",
-            element: <MyPurchasedModel></MyPurchasedModel>
-        },
-        {
-            path: "/login",
-            element: <Login></Login>
-        },
-        {
-            path: "/register",
-            element: <Registration></Registration>
-        }
-    ]
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/models",
+        element: <AllModels></AllModels>,
+      },
+      {
+        path: "/add-model",
+        element: (
+          <PrivateRoute>
+            <AddModel></AddModel>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/models/:id",
+        element: (
+          <PrivateRoute>
+            <ModelDetails></ModelDetails>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-model/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateModel></UpdateModel>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-models",
+        element: (
+          <PrivateRoute>
+            <MyModels></MyModels>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-purchased-models",
+        element: (
+          <PrivateRoute>
+            <MyPurchasedModel></MyPurchasedModel>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
+        element: <Registration></Registration>,
+      },
+    ],
   },
 ]);
 export default router;
