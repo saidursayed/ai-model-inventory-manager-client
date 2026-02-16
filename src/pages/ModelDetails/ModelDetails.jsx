@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const ModelDetails = () => {
   const { id } = useParams();
   const [model, setModel] = useState({});
   const { user } = useAuth();
-  const [refetch, setRefecth] = useState(false)
+  const [refetch, setRefecth] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/models/${id}`)
@@ -44,8 +46,42 @@ const ModelDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setRefecth(!refetch)
+        setRefecth(!refetch);
       });
+  };
+
+  const handelDeleteModal = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/models/${model._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            navigate("/models");
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
   };
   return (
     <div className="px-10 py-20">
@@ -87,6 +123,12 @@ const ModelDetails = () => {
             className="mt-6 bg-primary text-white py-2 px-6 rounded hover:bg-primary/90"
           >
             Purchase
+          </button>
+          <button
+            onClick={handelDeleteModal}
+            className="mt-6 bg-primary text-white py-2 px-6 rounded hover:bg-primary/90"
+          >
+            Delete
           </button>
         </div>
       </div>
