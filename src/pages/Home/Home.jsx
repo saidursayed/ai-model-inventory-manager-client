@@ -1,18 +1,18 @@
-import React from 'react';
-import { useLoaderData } from 'react-router';
-import ModelCard from '../../components/ModelCard/ModelCard';
+import React from "react";
+import { useLoaderData } from "react-router";
+import Banner from "../../components/Banner/Banner";
+import LatestModels from "../../components/LatestModels/LatestModels";
 
 const Home = () => {
-    const data = useLoaderData();
-    console.log(data)
-    return (
-        <div>
-            
-            <div className='grid grid-cols-3 gap-4'>
-                {data.map(model=><ModelCard key={model._id} model={model}></ModelCard>)}
-            </div>
-        </div>
-    );
+  const data = useLoaderData();
+  console.log(data);
+  return (
+    <div>
+      <Banner></Banner>
+      <LatestModels data={data}></LatestModels>
+
+    </div>
+  );
 };
 
 export default Home;

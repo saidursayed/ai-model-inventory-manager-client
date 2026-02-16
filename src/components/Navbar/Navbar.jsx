@@ -18,84 +18,87 @@ const Navbar = () => {
     </>
   );
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     logOut()
       .then(() => {
         // toast.success("You Logged Out successfully");
       })
       .catch((error) => {
         // toast.error(error.message);
-        console.log(error)
+        console.log(error);
       });
-  }
+  };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
-        <a className="btn btn-ghost text-xl">AI Model Inventory Manager</a>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
-      <div className="navbar-end">
-        {user ? (
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                {user && <img alt="" src={user.photoURL} />}
-              </div>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-            </ul>
-          </div>
-        ) : (
-          <div className="flex gap-1 md:gap-2">
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `btn btn-sm md:btn-md border-[1.5px] border-primary md:px-5 ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "bg-white text-primary hover:bg-primary hover:text-white"
-                }`
-              }
-            >
-              Login
-            </NavLink>
+    <div className="navbar bg-[#FCFCFC] shadow-sm py-4 fixed top-0 left-0 right-0 z-50">
 
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                `btn btn-sm md:btn-md border-[1.5px] border-primary md:px-5 ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "bg-white text-primary hover:bg-primary hover:text-white"
-                }`
-              }
-            >
-              Sign Up
-            </NavLink>
+        <div className=" max-w-7xl mx-auto px-4 w-full flex items-center justify-between">
+          <div className="navbar-start">
+            <a className="btn btn-ghost text-xl">AI Model Inventory Manager</a>
           </div>
-        )}
-      </div>
+          <div className="navbar-center hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">{links}</ul>
+          </div>
+          <div className="navbar-end">
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
+                  <div className="w-10 rounded-full">
+                    {user && <img alt="" src={user.photoURL} />}
+                  </div>
+                </div>
+                <ul
+                  tabIndex="-1"
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                >
+                  <li>
+                    <a className="justify-between">
+                      Profile
+                      <span className="badge">New</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a>Settings</a>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout}>Logout</button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="flex gap-1 md:gap-2">
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    `btn btn-sm md:btn-md border-[1.5px] border-primary md:px-5 ${
+                      isActive
+                        ? "bg-primary text-white"
+                        : "bg-white text-primary hover:bg-primary hover:text-white"
+                    }`
+                  }
+                >
+                  Login
+                </NavLink>
+
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    `btn btn-sm md:btn-md border-[1.5px] border-primary md:px-5 ${
+                      isActive
+                        ? "bg-primary text-white"
+                        : "bg-white text-primary hover:bg-primary hover:text-white"
+                    }`
+                  }
+                >
+                  Sign Up
+                </NavLink>
+              </div>
+            )}
+          </div>
+        </div>
     </div>
   );
 };

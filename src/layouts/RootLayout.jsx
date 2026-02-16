@@ -1,20 +1,28 @@
-import React from 'react';
-import Navbar from '../components/Navbar/Navbar';
-import { Outlet } from 'react-router';
-import Footer from '../components/Footer/Footer';
+import React from "react";
+import Navbar from "../components/Navbar/Navbar";
+import { Outlet } from "react-router";
+import Footer from "../components/Footer/Footer";
 
 const RootLayout = () => {
-    return (
-        <div>
-            <div className='max-w-7xl mx-auto'>
-                <Navbar></Navbar>
-                <div>
-                    <Outlet></Outlet>
-                </div>
-                <Footer></Footer>
-            </div>
-        </div>
-    );
+  return (
+    <div className="max-w-7xl mx-auto">
+      <header>
+        <nav>
+          <Navbar></Navbar>
+        </nav>
+      </header>
+
+      <main className="pt-20">
+        <section>
+          <Outlet></Outlet>
+        </section>
+      </main>
+
+      <footer>
+        <Footer></Footer>
+      </footer>
+    </div>
+  );
 };
 
 export default RootLayout;
