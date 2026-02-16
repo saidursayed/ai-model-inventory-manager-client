@@ -1,8 +1,9 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router";
 
 const ModelCard = ({ model }) => {
-  const { name, image, framework, useCase, description } = model;
+  const { _id, name, image, framework, useCase, description } = model;
   return (
     <div>
       <div className="card bg-base-100 shadow-sm rounded-none border border-gray-400">
@@ -21,14 +22,14 @@ const ModelCard = ({ model }) => {
           </div>
           </div>
           <div className="card-actions border-t border-t-gray-400">
-            <button className="relative w-full overflow-hidden border border-[#8B3DFF] text-white bg-[#8B3DFF] px-6 py-2 font-semibold transition-all duration-300 group">
+            <Link to={`/models/${_id}`} className="relative w-full overflow-hidden border border-[#8B3DFF] text-white bg-[#8B3DFF] px-6 py-2 font-semibold transition-all duration-300 group">
               <div className="relative flex justify-center items-center gap-2 z-10 group-hover:text-[#8B3DFF] transition-colors duration-300">
                 <span>View Details</span> <span><FaArrowRight /></span>
               </div>
 
               {/* Hover White Slide Effect */}
               <span className="absolute left-0 top-0 h-full w-0 bg-white transition-all duration-500 group-hover:w-full"></span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
