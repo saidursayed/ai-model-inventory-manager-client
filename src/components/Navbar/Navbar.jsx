@@ -1,6 +1,6 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -55,13 +55,10 @@ const Navbar = () => {
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
                   <li>
-                    <a className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </a>
+                    <Link to="/my-models">My Models</Link>
                   </li>
                   <li>
-                    <a>Settings</a>
+                    <Link to="/my-purchased-models">My Model Purchase</Link>
                   </li>
                   <li>
                     <button onClick={handleLogout}>Logout</button>
