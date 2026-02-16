@@ -19,10 +19,12 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
+        loader: () => fetch('http://localhost:3000/latest-models')
       },
       {
         path: "/models",
         element: <AllModels></AllModels>,
+        loader: () => fetch('http://localhost:3000/models')
       },
       {
         path: "/add-model",
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
             <AddModel></AddModel>
           </PrivateRoute>
         ),
+        
       },
       {
         path: "/models/:id",
