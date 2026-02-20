@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { FaArrowRight } from "react-icons/fa";
+import {
+  FaArrowRight,
+  FaDatabase,
+  FaMicrochip,
+  FaRobot,
+  FaShieldAlt,
+  FaShoppingCart,
+  FaUser,
+} from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
@@ -22,7 +30,7 @@ const ModelDetails = () => {
         console.log(error);
       });
   }, [id, refetch]);
-
+console.log(model.email)
   const handlePurchasedModel = () => {
     const purchasedModel = {
       name: model.name,
@@ -31,7 +39,7 @@ const ModelDetails = () => {
       dataset: model.dataset,
       description: model.description,
       image: model.image,
-      createdBy: model.email,
+      createdBy: model.createdBy,
       purchasedBy: user.email,
       purchasedAt: new Date(),
     };
@@ -84,52 +92,120 @@ const ModelDetails = () => {
     });
   };
   return (
-    <div className="px-10 py-20">
-      <div className="flex flex-col lg:flex-row gap-8">
-        {/* Model Image */}
-        <div className="flex-1 flex justify-center">
-          <img
-            src={model.image}
-            alt={model.name}
-            className="rounded-lg shadow-md "
-          />
+    <div className="bg-linear-to-b from-slate-100 to-slate-50 min-h-screen py-20">
+      <div className="max-w-6xl mx-auto">
+        {/* Header Navigation */}
+        <div className="mb-10 ">
+          <button
+            onClick={() => navigate(-1)}
+            className="text-sm font-extrabold text-slate-500 hover:text-indigo-600 transition-colors tracking-wide"
+          >
+            ← BACK TO MODELS
+          </button>
         </div>
 
-        {/* Model Details */}
-        <div className="flex-1 flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">{model.name}</h1>
+        {/* Main Card */}
+        <div className="bg-white rounded-[36px] border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/40">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* LEFT COLUMN - IMAGE SECTION */}
+            <div className="p-8 lg:p-10 lg:border-r border-slate-100 bg-linear-to-br from-slate-50 to-indigo-50/40">
+              {/* Image Card */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
+                <img
+                  src={model.image}
+                  alt={model.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
 
-          <div className="flex flex-wrap gap-4">
-            <span className="badge badge-outline">
-              Framework: {model.framework}
-            </span>
-            <span className="badge badge-outline">
-              Use Case: {model.useCase}
-            </span>
-            <span className="badge badge-outline">
-              Dataset: {model.dataset}
-            </span>
+                {/* Framework Badge */}
+                <div className="absolute top-5 right-5 bg-white/90 backdrop-blur-md px-5 py-2 rounded-2xl border border-slate-200 shadow-md text-xs font-extrabold text-indigo-600 tracking-wide">
+                  {model.framework}
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN - DETAILS */}
+            <div className="p-8 md:p-12 lg:p-14 flex flex-col">
+              {/* Profile Label */}
+              <div className="flex items-center gap-3 text-indigo-600 mb-5">
+                <FaRobot size={26} />
+                <span className="text-sm font-black uppercase">
+                  Model Profile
+                </span>
+              </div>
+
+              {/* Title */}
+              <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">
+                {model.name}
+              </h1>
+
+              {/* Description */}
+              <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-xl">
+                {model.description}
+              </p>
+
+              {/* Data Info Section */}
+              <div className="space-y-6 mb-12">
+                <div className="flex items-center justify-between py-4 border-b border-slate-100">
+                  <div className="flex items-center gap-3 text-slate-600 font-semibold">
+                    <FaUser className="text-slate-400" /> Created By
+                  </div>
+                  <span className="text-slate-900 font-bold">
+                    {model.createdBy}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-4 border-b border-slate-100">
+                  <div className="flex items-center gap-3 text-slate-600 font-semibold">
+                    <FaDatabase className="text-slate-400" /> Dataset Scale
+                  </div>
+                  <span className="text-slate-900 font-bold">
+                    {model.dataset}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center gap-3 text-slate-600 font-semibold">
+                    <FaShoppingCart className="text-slate-400" /> Purchased
+                  </div>
+                  <span className="text-indigo-600 font-extrabold text-lg">
+                    {model.purchased || 0}
+                  </span>
+                </div>
+              </div>
+
+              {/* ACTION BUTTONS */}
+              <div className="mt-auto space-y-5">
+                <button
+                  onClick={handlePurchasedModel}
+                  className={`w-full py-5 rounded-2xl font-black text-xs uppercase tracking-[0.25em] transition-all duration-300 shadow-lg
+                
+                    bg-linear-to-r from-indigo-600 to-violet-600 text-white hover:shadow-indigo-300 hover:scale-[1.02] active:scale-[0.98]`}
+                >
+                  Purchase Model
+                </button>
+
+                {/* Owner Actions */}
+                {model && (
+                  <div className="grid grid-cols-2 gap-4 pt-5 border-t border-slate-100">
+                    <Link
+                      to={`/update-model/${model._id}`}
+                      className="flex justify-center items-center py-4 rounded-xl border border-slate-200 font-extrabold text-[10px] uppercase tracking-[0.18em] text-slate-600 bg-white hover:bg-indigo-50 hover:border-indigo-500 hover:text-indigo-600 transition-all duration-300"
+                    >
+                      Update Model
+                    </Link>
+
+                    <button
+                      onClick={handelDeleteModal}
+                      className="py-4 rounded-xl border border-red-100 bg-red-50 text-red-600 font-extrabold text-[10px] uppercase tracking-[0.18em] hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm"
+                    >
+                      Delete Model
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-
-          <p className="text-gray-700 mt-4">{model.description}</p>
-
-          <p className="mt-4 font-semibold">
-            Purchased Count:{" "}
-            <span className="text-primary">{model.purchased}</span>
-          </p>
-
-          <button
-            onClick={handlePurchasedModel}
-            className="mt-6 bg-primary text-white py-2 px-6 rounded hover:bg-primary/90"
-          >
-            Purchase
-          </button>
-          <button
-            onClick={handelDeleteModal}
-            className="mt-6 bg-primary text-white py-2 px-6 rounded hover:bg-primary/90"
-          >
-            Delete
-          </button>
         </div>
       </div>
     </div>
