@@ -50,6 +50,7 @@ const router = createBrowserRouter([
             <UpdateModel></UpdateModel>
           </PrivateRoute>
         ),
+        loader: ({params}) => fetch(`http://localhost:3000/models/${params.id}`)
       },
       {
         path: "/my-models",
