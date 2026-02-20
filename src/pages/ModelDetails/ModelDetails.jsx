@@ -33,6 +33,7 @@ const ModelDetails = () => {
 console.log(model.email)
   const handlePurchasedModel = () => {
     const purchasedModel = {
+      modelId: model._id,
       name: model.name,
       framework: model.framework,
       useCase: model.useCase,

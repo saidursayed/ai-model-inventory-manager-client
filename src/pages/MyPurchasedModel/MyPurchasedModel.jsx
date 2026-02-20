@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth';
 const MyPurchasedModels = () => {
   const { user, loading } = useAuth();
   const [purchasedModels, setPurchasedModels] = useState([]);
+  console.log(purchasedModels)
 
   useEffect(() => {
     if (!user?.email) return;
@@ -49,14 +50,14 @@ const MyPurchasedModels = () => {
               bg-base-100 rounded-xl p-4 
               border border-gray-200 
               shadow-sm transition-all duration-300 ease-in-out 
-              hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01]"
+              hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01]"
             >
               {/* Left: Image + Info */}
               <div className="flex items-center gap-5">
                 <img
                   src={model.image}
                   alt={model.name}
-                  className="w-24 h-24 rounded-lg object-cover bg-gray-100 p-2"
+                  className="w-24 h-24 rounded-lg object-cover bg-gray-100 p-2 transition-transform duration-500 hover:scale-110"
                 />
 
                 <div>
@@ -83,13 +84,14 @@ const MyPurchasedModels = () => {
               </div>
 
               {/* Right: View Details Button */}
-              <Link to={`/models/${model._id}`}>
+              <Link to={`/models/${model.modelId}`}>
                 <button className="bg-indigo-600 hover:bg-indigo-700 
                 text-white px-5 py-2 cursor-pointer rounded-lg font-medium 
                 transition duration-200">
                   View Details
                 </button>
               </Link>
+              
             </div>
           ))}
         </div>
