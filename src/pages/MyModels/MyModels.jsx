@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const MyModels = () => {
   const { user } = useAuth();
   const [models, setModels] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user?.email) {
@@ -13,9 +15,14 @@ const MyModels = () => {
         .then((res) => res.json())
         .then((data) => {
           setModels(data);
+          setLoading(false);
         });
     }
   }, [user]);
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -61,7 +68,6 @@ const MyModels = () => {
               </div>
             </div>
 
-            
             <Link
               to={`/models/${model._id}`}
               className="relative overflow-hidden rounded-lg border border-emerald-500 text-white bg-emerald-500 px-6 py-2 font-semibold transition-all duration-300 group"

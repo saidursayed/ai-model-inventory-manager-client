@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { Link, NavLink } from "react-router";
 import { RiHome4Line, RiRobot2Line, RiRobot3Fill } from "react-icons/ri";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
+
   const links = (
     <>
       <li className="text-base font-medium">
@@ -38,15 +52,96 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="navbar bg-[#FCFCFC] shadow-sm py-4 fixed top-0 left-0 right-0 z-50">
+    <div className="navbar bg-[#FCFCFC] dark:bg-[#020617] shadow-sm py-3 fixed top-0 left-0 right-0 z-50">
       <div className=" max-w-7xl mx-auto px-4 w-full flex items-center justify-between">
         <div className="navbar-start">
-          <a className="btn btn-ghost text-xl">AI Model Inventory Manager</a>
+          <div className="dropdown lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-60 p-2 shadow bg-white rounded-box w-52"
+            >
+              {links}
+            </ul>
+          </div>
+
+          {/* Logo */}
+          <Link to="/">
+            <img
+              src={logo}
+              alt="AI Model Inventory Manager Logo"
+              className="h-12 md:h-14"
+            />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
+          <label className="toggle text-base-content">
+            <input
+              type="checkbox"
+              value="synthwave"
+              onChange={(e) => handleTheme(e.target.checked)}
+              defaultChecked={localStorage.getItem("theme") === "dark"}
+              className="theme-controller "
+            />
+
+            <svg
+              aria-label="sun"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2"
+                fill="none"
+                stroke="currentColor"
+              >
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </g>
+            </svg>
+
+            <svg
+              aria-label="moon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <g
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth="2"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+              </g>
+            </svg>
+          </label>
           {user ? (
             <div className="dropdown dropdown-end">
               <div
@@ -63,7 +158,6 @@ const Navbar = () => {
                 tabIndex={-1}
                 className="menu menu-sm dropdown-content bg-white rounded-xl z-50 mt-5.5 p-0 shadow-xl border border-gray-100"
               >
-                
                 <div className="px-4 py-3 border-b border-gray-100">
                   <h2 className="text-lg font-medium text-gray-900">
                     {user.displayName}
@@ -71,7 +165,6 @@ const Navbar = () => {
                   <p className="text-sm text-gray-500">{user.email}</p>
                 </div>
 
-                
                 <ul className="p-2">
                   <li>
                     <Link

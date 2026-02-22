@@ -1,11 +1,18 @@
 import React from "react";
 import Navbar from "../components/Navbar/Navbar";
-import { Outlet } from "react-router";
+import { Outlet, useNavigation } from "react-router";
 import Footer from "../components/Footer/Footer";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 const RootLayout = () => {
+  const navigation = useNavigation();
+
+  const isLoading = navigation.state === "loading";
   return (
     <div className="max-w-7xl mx-auto">
+      {isLoading && (
+        <LoadingSpinner></LoadingSpinner>
+      )}
       <header>
         <nav>
           <Navbar></Navbar>

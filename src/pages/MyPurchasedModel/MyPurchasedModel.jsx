@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router';
-import useAuth from '../../hooks/useAuth';
+import React, { useEffect, useState } from "react";
+import { Link, Navigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
+import { FaArrowRight } from "react-icons/fa";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const MyPurchasedModels = () => {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const [purchasedModels, setPurchasedModels] = useState([]);
-  console.log(purchasedModels)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.email) return;
 
     fetch(`http://localhost:3000/my-purchased-models?email=${user.email}`)
-      .then(res => res.json())
-      .then(data => setPurchasedModels(data))
-      .catch(err => console.error(err));
+      .then((res) => res.json())
+      .then((data) => {
+        setPurchasedModels(data);
+        setLoading(false);
+      })
+      .catch((err) => console.error(err));
   }, [user]);
 
-  // Private Route Protection
-  if (!loading && !user) {
-    return <Navigate to="/login" replace />;
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
   }
-
   return (
     <div className="max-w-6xl mx-auto p-6 min-h-screen">
       {/* Title & Subtitle */}
@@ -83,15 +86,19 @@ const MyPurchasedModels = () => {
                 </div>
               </div>
 
-              {/* Right: View Details Button */}
-              <Link to={`/models/${model.modelId}`}>
-                <button className="bg-indigo-600 hover:bg-indigo-700 
-                text-white px-5 py-2 cursor-pointer rounded-lg font-medium 
-                transition duration-200">
-                  View Details
-                </button>
+              <Link
+                to={`/models/${model.modelId}`}
+                className="relative overflow-hidden rounded-lg border border-indigo-600 text-white bg-indigo-600 px-5 py-2 font-semibold transition-all duration-300 group"
+              >
+                <div className="relative flex justify-center items-center gap-2 z-10 group-hover:text-indigo-600 transition-colors duration-300">
+                  <span>View Details</span>
+                  <span>
+                    <FaArrowRight />
+                  </span>
+                </div>
+
+                <span className="absolute left-0 top-0 h-full w-0 bg-white transition-all duration-500 group-hover:w-full"></span>
               </Link>
-              
             </div>
           ))}
         </div>

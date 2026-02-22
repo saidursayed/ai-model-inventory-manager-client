@@ -1,9 +1,9 @@
 import React from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
 const UpdateModel = () => {
   const data = useLoaderData();
-  console.log(data);
+  const navigate = useNavigate();
   const handleUpdateModel = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -26,8 +26,11 @@ const UpdateModel = () => {
       body: JSON.stringify(updataData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then((resData) => {
+        console.log(resData);
+        if (resData.modifiedCount > 0) {
+          navigate(`/models/${data._id}`);
+        }
       });
   };
   return (

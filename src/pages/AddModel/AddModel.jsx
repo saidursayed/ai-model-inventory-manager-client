@@ -1,8 +1,10 @@
 import React from "react";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 const AddModel = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const handleAddModel = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -28,6 +30,7 @@ const AddModel = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        navigate("/models")
       })
       .catch((err) => {
         console.log(err);

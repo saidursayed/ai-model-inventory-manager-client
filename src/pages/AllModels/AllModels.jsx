@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useLoaderData } from "react-router";
 import ModelCard from "../../components/ModelCard/ModelCard";
 
@@ -6,17 +6,35 @@ const AllModels = () => {
   const data = useLoaderData();
   const [models, setModels] = useState(data);
   const [loading, setLoading] = useState(false);
-  console.log(data);
+  const frameworks = [...new Set(data.map((model) => model.framework))];
+  const filterRef = useRef();
+  // console.log(data);
   const handleSearch = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
-    console.log(search);
+    // console.log(search);
     setLoading(true);
     fetch(`http://localhost:3000/search?search=${search}`)
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
         setModels(data);
+      });
+  };
+  const filterModels = () => {
+    const framework = filterRef.current.value;
+    if (!framework) {
+      setModels(data);
+      return;
+    }
+
+    fetch(`http://localhost:3000/filter-models?framework=${framework}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setModels(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
   return (
@@ -30,7 +48,20 @@ const AllModels = () => {
         </p>
       </div>
       <div className="mb-10 flex justify-between">
-        <div>Filter</div>
+        <div>
+          <select
+            defaultValue=""
+            name="framework"
+            ref={filterRef}
+            onChange={() => filterModels()}
+            className="select"
+          >
+            <option value="">All Frameworks</option>
+            {frameworks.map((framework, index) => (
+              <option key={index}>{framework}</option>
+            ))}
+          </select>
+        </div>
         <div>
           <form onSubmit={handleSearch}>
             <div className="flex">
