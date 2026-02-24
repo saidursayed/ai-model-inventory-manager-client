@@ -19,7 +19,7 @@ const RootLayout = () => {
         </nav>
       </header>
 
-      <main className="pt-20">
+      <main className="pt-18 md:pt-20">
         <section>
           <Outlet></Outlet>
         </section>

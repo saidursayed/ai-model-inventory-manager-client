@@ -1,8 +1,10 @@
 import React from "react";
 import { useLoaderData, useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const UpdateModel = () => {
   const data = useLoaderData();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const handleUpdateModel = (e) => {
     e.preventDefault();
@@ -22,6 +24,7 @@ const UpdateModel = () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
       },
       body: JSON.stringify(updataData),
     })

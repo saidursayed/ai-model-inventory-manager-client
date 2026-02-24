@@ -3,10 +3,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {googleSignIn, signInUser} = useAuth();
+  const { googleSignIn, signInUser } = useAuth();
   const navigate = useNavigate();
 
   const handleTogglePasswordShow = (e) => {
@@ -17,11 +18,12 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
+        toast.success(`Welcome back, ${result.user.displayName || "User"}`);
         navigate("/");
       })
       .caten((error) => {
-        console.log(error);
+        const errorMessage = error.message;
+        toast.error(errorMessage);
       });
   };
 
@@ -32,88 +34,100 @@ const Login = () => {
     const password = form.password.value;
 
     signInUser(email, password)
-    .then((result) => {
-        console.log(result.user);
+      .then((result) => {
+        toast.success(`Welcome back, ${result.user.displayName || "User"}`);
         e.target.reset();
         navigate(location.state || "/");
       })
       .catch((error) => {
-        console.log(error);
+        const errorMessage = error.message;
+        toast.error(errorMessage);
       });
-
   };
   return (
-    <div className="flex justify-center items-center m-0 my-5 md:my-10">
-      <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl px-3 py-6">
-        <h2 className="font-semibold text-2xl md:text-3xl text-center">
-          Login to AI Model Inventory Manager
+    <div className="flex justify-center items-center bg-[#EEF2F7] dark:bg-[#020617] min-h-screen px-6 py-8 md:py-12 md:px-0">
+      <div className="card w-full max-w-sm shrink-0 shadow-2xl px-1 md:px-3 py-4 md:py-6 bg-white dark:bg-[#0F172B] rounded-xl transition-colors duration-300">
+        <h2 className="font-semibold text-xl md:text-2xl text-center text-gray-900 dark:text-white">
+          Login to AI Model <br /> Inventory Manager
         </h2>
-        <p className="text-gray-500 text-center font-medium mt-2 text-sm ">
-          Welcome back! Please enter your details.
-        </p>
+
         <form onSubmit={handleLogin} className="card-body py-0 mt-4">
-          <fieldset className="fieldset">
-            {/* email */}
-            <label className="label text-base text-gray-600">Email</label>
+          <fieldset className="space-y-2">
+            {/* Email */}
+            <label className="label text-base text-gray-600 dark:text-gray-400">
+              Email
+            </label>
             <input
               name="email"
               type="email"
-              className="input outline-secondary focus:border-0"
+              className="input w-full rounded-lg border border-gray-300 dark:border-slate-600
+                     dark:bg-slate-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Enter your email"
-            //   value={formEmail}
-            //   onChange={(e) => setFormEmail(e.target.value)}
               required
             />
-            {/* password */}
-            <label className="label text-base text-gray-600">Password</label>
+
+            {/* Password */}
+            <label className="label text-base text-gray-600 dark:text-gray-400">
+              Password
+            </label>
             <div className="relative">
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
-                className="input outline-secondary focus:border-0"
+                className="input w-full rounded-lg border border-gray-300 dark:border-slate-600
+                       dark:bg-slate-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 placeholder="Enter Password"
                 required
               />
               <button
+                type="button"
                 onClick={handleTogglePasswordShow}
-                className="absolute top-1 right-1 btn btn-sm"
+                className="absolute top-1 right-1 border-none btn btn-sm bg-gray-200 dark:bg-slate-600 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-slate-500"
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
 
+            {/* Forgot Password */}
             <div>
               <Link
                 to="/forgot-password"
-                className="text-secondary link link-hover font-semibold"
+                className="text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300 link link-hover text-sm"
               >
                 Forgot password?
               </Link>
             </div>
-            {/* {error && (
-              <p className="text-red-500 text-xs font-medium mt-1">{error}</p>
-            )} */}
+
+            {/* Login Button */}
             <button
               type="submit"
-              className="btn bg-[#7F56D9] hover:bg-secondary text-white text-base mt-2"
+              className="btn w-full mt-2 bg-linear-to-r from-[#8B3DFF] to-[#5A00FF] 
+                     text-white font-bold hover:shadow-2xl hover:scale-105 transition transform duration-300"
             >
               Login
             </button>
           </fieldset>
         </form>
-        <div className="card-body py-0">
+
+        <div className="card-body py-0 mt-4 space-y-3">
+          {/* Google Sign-in */}
           <button
             onClick={handleGoogleSignIn}
-            className="btn mt-2 text-gray-600"
+            className="btn w-full flex items-center justify-center gap-2 border border-gray-300 dark:border-slate-600
+                   bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-600 transition"
           >
             <FcGoogle size={22} />
             Continue With Google
           </button>
 
-          <p className="font-semibold text-gray-600 text-center text-xs pt-5">
-            Dont’t Have An Account ?{" "}
-            <Link className="text-secondary" to="/register">
-              Sign up
+          {/* Sign Up Link */}
+          <p className="font-semibold text-gray-600 dark:text-gray-400 text-center text-xs pt-5">
+            Don’t Have An Account?{" "}
+            <Link
+              className="text-indigo-600 dark:text-indigo-400 hover:underline"
+              to="/register"
+            >
+              Sign Up
             </Link>
           </p>
         </div>

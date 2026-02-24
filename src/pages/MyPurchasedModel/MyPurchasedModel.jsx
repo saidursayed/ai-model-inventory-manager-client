@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router";
+import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { FaArrowRight } from "react-icons/fa";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
@@ -12,7 +12,11 @@ const MyPurchasedModels = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/my-purchased-models?email=${user.email}`)
+    fetch(`http://localhost:3000/my-purchased-models?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setPurchasedModels(data);
@@ -22,82 +26,83 @@ const MyPurchasedModels = () => {
   }, [user]);
 
   if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
+    return <LoadingSpinner />;
   }
+
   return (
-    <div className="max-w-6xl mx-auto p-6 min-h-screen">
-      {/* Title & Subtitle */}
+    <div className="p-6 min-h-screen bg-[#E5E5FD] dark:bg-[#1A1B2E] transition-colors duration-500">
+
       <div className="text-center mb-10">
-        <h2 className="font-bold text-5xl mb-2">
-          My Purchased<span className="text-indigo-600"> Models</span>
+        <h2 className="font-bold text-5xl mb-2 text-gray-900 dark:text-white">
+          My Purchased<span className="text-indigo-600 dark:text-indigo-400"> Models</span>
         </h2>
-        <p className="text-gray-500 text-lg">
+        <p className="text-gray-600 dark:text-gray-300 text-lg">
           View and manage all AI models you have purchased in one place.
         </p>
       </div>
 
-      {/* Empty State */}
+
       {purchasedModels.length === 0 ? (
-        <div className="text-center py-20 text-gray-400">
+        <div className="text-center py-20 text-gray-400 dark:text-gray-500">
           <p className="text-lg">No purchased models found.</p>
           <p className="text-sm mt-1">
             Explore models and purchase to see them listed here.
           </p>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {purchasedModels.map((model) => (
             <div
               key={model._id}
               className="flex items-center justify-between 
-              bg-base-100 rounded-xl p-4 
-              border border-gray-200 
-              shadow-sm transition-all duration-300 ease-in-out 
-              hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01]"
+              bg-white dark:bg-slate-800 rounded-xl p-4 
+              border border-gray-200 dark:border-gray-700
+              shadow-2xl shadow-slate-300/40 dark:shadow-black/50
+              transition-all duration-300 ease-in-out
+              hover:shadow-2xl hover:scale-[1.01] hover:bg-gray-50 dark:hover:bg-slate-700"
             >
-              {/* Left: Image + Info */}
+
               <div className="flex items-center gap-5">
                 <img
                   src={model.image}
                   alt={model.name}
-                  className="w-24 h-24 rounded-lg object-cover bg-gray-100 p-2 transition-transform duration-500 hover:scale-110"
+                  className="w-24 h-24 rounded-lg object-cover bg-gray-100 dark:bg-slate-700 p-2 transition-transform duration-500 hover:scale-110"
                 />
 
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
                     {model.name}
                   </h3>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Framework: {model.framework}
                   </p>
 
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Use Case: {model.useCase}
                   </p>
 
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     Created by: {model.createdBy}
                   </p>
 
-                  <p className="text-sm text-indigo-500 font-medium">
+                  <p className="text-sm text-indigo-500 font-medium dark:text-indigo-400">
                     Purchased by: {model.purchasedBy}
                   </p>
                 </div>
               </div>
 
+              {/* View Details Button */}
               <Link
                 to={`/models/${model.modelId}`}
-                className="relative overflow-hidden rounded-lg border border-indigo-600 text-white bg-indigo-600 px-5 py-2 font-semibold transition-all duration-300 group"
+                className="relative overflow-hidden rounded-lg border border-indigo-600 text-white bg-indigo-600 px-5 py-2 font-semibold transition-all duration-300 group dark:text-white"
               >
                 <div className="relative flex justify-center items-center gap-2 z-10 group-hover:text-indigo-600 transition-colors duration-300">
                   <span>View Details</span>
-                  <span>
-                    <FaArrowRight />
-                  </span>
+                  <FaArrowRight />
                 </div>
 
-                <span className="absolute left-0 top-0 h-full w-0 bg-white transition-all duration-500 group-hover:w-full"></span>
+                <span className="absolute left-0 top-0 h-full w-0 bg-white dark:bg-[#E5E5FD] transition-all duration-500 group-hover:w-full"></span>
               </Link>
             </div>
           ))}

@@ -18,5 +18,5 @@
   font-family: "Inter", sans-serif;
 }
 a.active {
-  @apply text-blue-700;
+  @apply text-blue-700 dark:font-bold;
 }
