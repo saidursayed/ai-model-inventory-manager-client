@@ -21,13 +21,15 @@ const ModelDetails = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  console.log(user.accessToken);
   useEffect(() => {
-    fetch(`http://localhost:3000/models/${id}`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
+    fetch(
+      `https://ai-model-inventory-manager-server-eight.vercel.app/models/${id}`,
+      {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
       },
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -54,13 +56,17 @@ const ModelDetails = () => {
       purchasedAt: new Date(),
     };
 
-    fetch(`http://localhost:3000/purchased-models/${model._id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      `https://ai-model-inventory-manager-server-eight.vercel.app/purchased-models/${model._id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify(purchasedModel),
       },
-      body: JSON.stringify(purchasedModel),
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -79,12 +85,16 @@ const ModelDetails = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/models/${model._id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
+        fetch(
+          `https://ai-model-inventory-manager-server-eight.vercel.app/models/${model._id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${user.accessToken}`,
+            },
           },
-        })
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
@@ -108,7 +118,6 @@ const ModelDetails = () => {
   return (
     <div className="bg-[#F3F2FF] dark:bg-[#1A263A] min-h-screen py-20">
       <div className="max-w-6xl mx-auto">
-
         <div className="mb-10 ">
           <button
             onClick={() => navigate(-1)}
@@ -140,7 +149,6 @@ const ModelDetails = () => {
 
             {/* RIGHT COLUMN - DETAILS */}
             <div className="p-8 md:p-12 lg:p-14 flex flex-col">
-              
               <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-100 mb-6 leading-tight">
                 {model.name}
               </h1>

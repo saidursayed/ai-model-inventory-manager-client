@@ -11,11 +11,14 @@ const MyModels = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-models?email=${user.email}`, {
-        headers: {
-          authorization: `Bearer ${user.accessToken}`,
+      fetch(
+        `https://ai-model-inventory-manager-server-eight.vercel.app/my-models?email=${user.email}`,
+        {
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
         },
-      })
+      )
         .then((res) => res.json())
         .then((data) => {
           setModels(data);
@@ -30,7 +33,6 @@ const MyModels = () => {
 
   return (
     <div className="p-6 bg-[#E5E5FD] dark:bg-[#1A1B2E] min-h-screen transition-colors duration-500">
-
       <div className="text-center mb-10">
         <h2 className="font-bold text-5xl mb-2 text-gray-900 dark:text-white">
           My
@@ -45,18 +47,18 @@ const MyModels = () => {
         {models.map((model) => (
           <div
             key={model._id}
-            className="flex items-center justify-between bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 shadow-2xl shadow-slate-300/40 dark:shadow-black/50 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-[1.01] hover:bg-gray-50 dark:hover:bg-slate-700"
+            className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-0 bg-white dark:bg-slate-800 rounded-xl p-3 md:p-4 border border-gray-200 dark:border-gray-700 shadow-2xl shadow-slate-300/40 dark:shadow-black/50 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-[1.01]hover:bg-gray-50 dark:hover:bg-slate-700"
           >
-
-            <div className="flex items-center gap-5">
+            {/* Left Section */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
               <img
                 src={model.image}
                 alt={model.name}
-                className="w-24 h-24 rounded-lg object-cover bg-white dark:bg-slate-700 p-2 transition-transform duration-500 hover:scale-105"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover bg-white dark:bg-slate-700 p-2 transition-transform duration-500 hover:scale-105"
               />
 
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white">
                   {model.name}
                 </h3>
 
@@ -74,15 +76,16 @@ const MyModels = () => {
               </div>
             </div>
 
-
+            {/* Button */}
             <Link
               to={`/models/${model._id}`}
-              className="relative overflow-hidden rounded-lg border border-emerald-500 text-white bg-emerald-500 px-6 py-2 font-semibold transition-all duration-300 group dark:text-white"
+              className="w-full md:w-auto text-center relative overflow-hidden rounded-lg border border-emerald-500 text-white bg-emerald-500 px-6 py-2 font-semibold transition-all duration-300 group"
             >
               <div className="relative flex justify-center items-center gap-2 z-10 group-hover:text-emerald-500 transition-colors duration-300">
                 <span>View Details</span>
                 <FaArrowRight />
               </div>
+
               <span className="absolute left-0 top-0 h-full w-0 bg-white dark:bg-gray-700 transition-all duration-500 group-hover:w-full"></span>
             </Link>
           </div>

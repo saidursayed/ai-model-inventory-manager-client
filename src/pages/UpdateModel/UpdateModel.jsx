@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 
 const UpdateModel = () => {
   const data = useLoaderData();
+  console.log(data);
   const { user } = useAuth();
   const navigate = useNavigate();
   const handleUpdateModel = (e) => {
@@ -20,14 +21,17 @@ const UpdateModel = () => {
       updatedAt: new Date(),
     };
 
-    fetch(`http://localhost:3000/models/${data._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${user.accessToken}`,
+    fetch(
+      `https://ai-model-inventory-manager-server-eight.vercel.app/models/${data._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify(updataData),
       },
-      body: JSON.stringify(updataData),
-    })
+    )
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);

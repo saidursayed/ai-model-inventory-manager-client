@@ -8,9 +8,9 @@ const Footer = () => {
   return (
     <footer className="relative z-50 bg-[#F8FAFC] dark:bg-[#0B102B] text-slate-700 dark:text-slate-300">
       <div className="max-w-7xl mx-auto px-6 py-16">
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-          {/* Brand */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
           <div className="space-y-4">
             <div className="text-2xl font-bold text-slate-800 dark:text-white">
               <img className="h-12 md:h-14" src={logo} alt="" />
@@ -34,7 +34,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Product Links */}
           <div>
             <h6 className="font-semibold text-slate-800 dark:text-white mb-4 text-base md:text-lg">
               Product
@@ -67,8 +66,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Our Services Section */}
-          <div className="mt-8 lg:mt-0">
+
+          <div>
             <h6 className="font-semibold text-slate-800 dark:text-white text-base md:text-lg mb-4">
               Our Services
             </h6>
@@ -86,7 +85,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Contact Us Section */}
+
           <div>
             <h6 className="font-semibold text-slate-800 dark:text-white text-base md:text-lg mb-4">
               Contact Us
@@ -115,7 +114,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Divider */}
+
         <div className="border-t border-slate-200 dark:border-slate-800 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm">
             © {new Date().getFullYear()} AI Model Inventory Manager. All rights
@@ -133,7 +132,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Glassy gradient effect */}
       <div className="absolute inset-0 pointer-events-none bg-linear-to-t from-[#8B3DFF]/10 via-transparent to-transparent"></div>
     </footer>
   );

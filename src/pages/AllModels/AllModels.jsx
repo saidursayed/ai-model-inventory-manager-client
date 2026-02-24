@@ -15,7 +15,9 @@ const AllModels = () => {
     const search = e.target.search.value;
 
     setLoading(true);
-    fetch(`http://localhost:3000/search?search=${search}`)
+    fetch(
+      `https://ai-model-inventory-manager-server-eight.vercel.app/search?search=${search}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -29,7 +31,9 @@ const AllModels = () => {
       return;
     }
     setLoading(true);
-    fetch(`http://localhost:3000/filter-models?framework=${framework}`)
+    fetch(
+      `https://ai-model-inventory-manager-server-eight.vercel.app/filter-models?framework=${framework}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         setModels(data);
@@ -92,7 +96,9 @@ const AllModels = () => {
                   placeholder="Search"
                 />
               </label>
-              <button className="btn w-1/3 bg-indigo-600 text-white">Search</button>
+              <button className="btn w-1/3 bg-indigo-600 text-white">
+                Search
+              </button>
             </div>
           </form>
         </div>

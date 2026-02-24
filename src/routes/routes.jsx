@@ -19,12 +19,18 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: () => fetch('http://localhost:3000/latest-models')
+        loader: () =>
+          fetch(
+            "https://ai-model-inventory-manager-server-eight.vercel.app/latest-models",
+          ),
       },
       {
         path: "/models",
         element: <AllModels></AllModels>,
-        loader: () => fetch('http://localhost:3000/models')
+        loader: () =>
+          fetch(
+            "https://ai-model-inventory-manager-server-eight.vercel.app/models",
+          ),
       },
       {
         path: "/add-model",
@@ -33,7 +39,6 @@ const router = createBrowserRouter([
             <AddModel></AddModel>
           </PrivateRoute>
         ),
-        
       },
       {
         path: "/models/:id",
@@ -50,7 +55,10 @@ const router = createBrowserRouter([
             <UpdateModel></UpdateModel>
           </PrivateRoute>
         ),
-        loader: ({params}) => fetch(`http://localhost:3000/models/${params.id}`)
+        loader: ({ params }) =>
+          fetch(
+            `https://ai-model-inventory-manager-server-eight.vercel.app/models/${params.id}`,
+          ),
       },
       {
         path: "/my-models",

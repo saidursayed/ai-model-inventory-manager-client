@@ -21,17 +21,20 @@ const AddModel = () => {
       purchased: 0,
     };
     console.log(addModelData);
-    fetch("http://localhost:3000/add-model", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${user.accessToken}`,
+    fetch(
+      "https://ai-model-inventory-manager-server-eight.vercel.app/add-model",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${user.accessToken}`,
+        },
+        body: JSON.stringify(addModelData),
       },
-      body: JSON.stringify(addModelData),
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         toast.success("AI Model has been added successfully!");
         navigate("/models");
       })
