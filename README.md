@@ -1,16 +1,50 @@
-# React + Vite
+# 🤖 AI Model Inventory Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application for managing, browsing, and purchasing AI models. Users can add, update, search, filter, and track AI models with secure authentication and a modern responsive UI.
 
-Currently, two official plugins are available:
+🌐 **Live Client Site:** [https://ai-model-inventory-manager-ai.netlify.app/](https://ai-model-inventory-manager-ai.netlify.app/)  
+🌐 **Live Server Site:** [https://ai-model-inventory-manager-server-eight.vercel.app/](https://ai-model-inventory-manager-server-eight.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📂 **GitHub Repositories:**  
+- Client: [https://github.com/saidursayed/ai-model-inventory-manager-client.git](https://github.com/saidursayed/ai-model-inventory-manager-client.git)  
+- Server: [https://github.com/saidursayed/ai-model-inventory-manager-server.git](https://github.com/saidursayed/ai-model-inventory-manager-server.git)  
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Key Features
 
-## Expanding the ESLint configuration
+- **🔐 Authentication & Authorization**  
+  Email/Password & Google Sign-In using Firebase  
+  Protected routes for adding, updating, and purchasing models  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **📦 AI Model Management (CRUD)**  
+  Add, edit, delete, and view AI models  
+  Each model includes framework, use case, dataset, description, and image  
+  Only the creator can modify or delete their models  
+
+- **🔎 Search & Filter**  
+  Search AI models by name (case-insensitive)  
+  Filter models by framework (TensorFlow, PyTorch, etc.)  
+  Instant UI updates without page reload  
+
+- **🛒 Model Purchase Tracking**  
+  Purchase models and track purchase count in real time  
+  Separate “My Models” and “Purchased Models” pages  
+
+- **🌗 User Experience**  
+  Dark / Light theme toggle  
+  Loading spinners during data fetch & form submission  
+  Custom 404 error page  
+  Fully responsive design (mobile, tablet, desktop)  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React, React Router, Tailwind CSS, DaisyUI  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB  
+- **Authentication:** Firebase  
+- **Extras:** React Hot Toast, SweetAlert2, Swiper, AOS animations  
+
+---
