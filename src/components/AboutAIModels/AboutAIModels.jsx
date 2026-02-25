@@ -18,7 +18,7 @@ const AboutAIModels = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
 
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
+          <div data-aos="fade-down" className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
             <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FaBrain className="text-[#8B3DFF]" />
               Understanding AI Models
@@ -32,7 +32,7 @@ const AboutAIModels = () => {
           </div>
 
 
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
+          <div data-aos="fade-down" className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
             <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FaRobot className="text-[#8B3DFF]" />
               Neural Networks & Deep Learning
@@ -45,7 +45,7 @@ const AboutAIModels = () => {
             </p>
           </div>
 
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
+          <div data-aos="fade-up" className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
             <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FaGlobe className="text-[#8B3DFF]" />
               Real-World Applications
@@ -59,7 +59,7 @@ const AboutAIModels = () => {
           </div>
 
 
-          <div className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
+          <div data-aos="fade-up" className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-md hover:shadow-xl transition">
             <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
               <FaChartLine className="text-[#8B3DFF]" />
               Importance in Modern Technology

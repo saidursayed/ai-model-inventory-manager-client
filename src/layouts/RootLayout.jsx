@@ -9,7 +9,7 @@ const RootLayout = () => {
 
   const isLoading = navigation.state === "loading";
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto ">
       {isLoading && (
         <LoadingSpinner></LoadingSpinner>
       )}
@@ -19,7 +19,7 @@ const RootLayout = () => {
         </nav>
       </header>
 
-      <main className="pt-18 md:pt-20">
+      <main className="pt-16 md:pt-18 min-h-screen">
         <section>
           <Outlet></Outlet>
         </section>

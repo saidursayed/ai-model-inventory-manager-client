@@ -10,6 +10,8 @@ import MyPurchasedModel from "../pages/MyPurchasedModel/MyPurchasedModel";
 import Login from "../pages/Auth/Login";
 import Registration from "../pages/Auth/Registration";
 import PrivateRoute from "./PrivateRoute";
+import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../components/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,7 @@ const router = createBrowserRouter([
           fetch(
             "https://ai-model-inventory-manager-server-eight.vercel.app/latest-models",
           ),
+        hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>,
       },
       {
         path: "/models",
@@ -83,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration></Registration>,
+      },
+      {
+        path: "*",
+        element: <ErrorPage></ErrorPage>,
       },
     ],
   },

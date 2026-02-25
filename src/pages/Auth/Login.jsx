@@ -21,7 +21,7 @@ const Login = () => {
         toast.success(`Welcome back, ${result.user.displayName || "User"}`);
         navigate("/");
       })
-      .caten((error) => {
+      .catch((error) => {
         const errorMessage = error.message;
         toast.error(errorMessage);
       });
@@ -91,7 +91,7 @@ const Login = () => {
             {/* Forgot Password */}
             <div>
               <Link
-                to="/forgot-password"
+                to=""
                 className="text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300 link link-hover text-sm"
               >
                 Forgot password?
@@ -120,7 +120,7 @@ const Login = () => {
             Continue With Google
           </button>
 
-          {/* Sign Up Link */}
+          
           <p className="font-semibold text-gray-600 dark:text-gray-400 text-center text-xs pt-5">
             Don’t Have An Account?{" "}
             <Link

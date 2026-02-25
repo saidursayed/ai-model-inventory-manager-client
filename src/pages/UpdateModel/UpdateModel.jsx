@@ -1,12 +1,13 @@
 import React from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const UpdateModel = () => {
   const data = useLoaderData();
-  console.log(data);
   const { user } = useAuth();
   const navigate = useNavigate();
+
   const handleUpdateModel = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -34,28 +35,36 @@ const UpdateModel = () => {
     )
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         if (resData.modifiedCount > 0) {
+          toast.success("Model updated successfully!");
           navigate(`/models/${data._id}`);
+        } else {
+          toast("No changes were made.");
         }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Failed to update model.");
       });
   };
+
   return (
-    <div className="min-h-screen bg-linear-to-b from-slate-100 to-slate-50 py-16 px-4">
+    <div className="min-h-screen bg-[#F3F2FF] dark:bg-[#1A263A] py-16 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
-          <h2 className="font-bold text-5xl mb-2">
-            Update <span className="text-indigo-600">Model</span>
+          <h2 className="font-bold text-3xl md:text-5xl mb-2">
+            Update{" "}
+            <span className="text-indigo-600 dark:text-indigo-400">Model</span>
           </h2>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 dark:text-gray-300 textbase md:text-lg">
             Modify the details of your AI model and save the changes.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-4 md:p-8">
+        <div className="bg-white dark:bg-[#0F172B] rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-4 md:p-8">
           <form onSubmit={handleUpdateModel} className="space-y-3">
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-400">
                 Model Name
               </label>
               <input
@@ -63,14 +72,14 @@ const UpdateModel = () => {
                 type="text"
                 name="name"
                 placeholder="Enter AI model name"
-                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50"
+                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 dark:bg-[#1A263A] text-slate-900 dark:text-white"
                 required
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="text-sm font-bold text-slate-700">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-400">
                   Framework
                 </label>
                 <input
@@ -78,13 +87,13 @@ const UpdateModel = () => {
                   type="text"
                   name="framework"
                   placeholder="Enter model framework"
-                  className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 dark:bg-[#1A263A] text-slate-900 dark:text-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-sm font-bold text-slate-700">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-400">
                   Use Case
                 </label>
                 <input
@@ -92,14 +101,14 @@ const UpdateModel = () => {
                   type="text"
                   name="useCase"
                   placeholder="Enter model use case"
-                  className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 dark:bg-[#1A263A] text-slate-900 dark:text-white"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-400">
                 Dataset
               </label>
               <input
@@ -107,13 +116,13 @@ const UpdateModel = () => {
                 type="text"
                 name="dataset"
                 placeholder="Enter Dataset"
-                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 dark:bg-[#1A263A] text-slate-900 dark:text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-400">
                 Description
               </label>
               <textarea
@@ -121,13 +130,13 @@ const UpdateModel = () => {
                 name="description"
                 rows="5"
                 placeholder="Enter model description"
-                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all resize-none"
+                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all resize-none bg-slate-50 dark:bg-[#1A263A] text-slate-900 dark:text-white"
                 required
               ></textarea>
             </div>
 
             <div>
-              <label className="text-sm font-bold text-slate-700">
+              <label className="text-sm font-bold text-slate-700 dark:text-slate-400">
                 Image URL
               </label>
               <input
@@ -135,7 +144,7 @@ const UpdateModel = () => {
                 type="text"
                 name="image"
                 placeholder="Enter image URL"
-                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                className="w-full mt-1 px-4 py-3 rounded-md border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all bg-slate-50 dark:bg-[#1A263A] text-slate-900 dark:text-white"
                 required
               />
             </div>
@@ -143,7 +152,7 @@ const UpdateModel = () => {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full py-4 rounded-md font-black text-sm uppercase bg-[#8B3DFF] text-white shadow-lg hover:bg-slate-50 hover:text-[#8B3DFF] border-[1.5px] border-[#8B3DFF] hover:shadow-xl transition-all duration-500 cursor-pointer"
+                className="w-full py-4 rounded-md font-black text-sm uppercase bg-[#8B3DFF] text-white shadow-lg hover:bg-slate-50 dark:hover:bg-[#0F172B] hover:text-[#8B3DFF] border-[1.5px] border-[#8B3DFF] hover:shadow-xl transition-all duration-500 cursor-pointer"
               >
                 Update Model
               </button>

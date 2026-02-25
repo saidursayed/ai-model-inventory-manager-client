@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 const AddModel = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+
   const handleAddModel = (e) => {
     e.preventDefault();
     const form = e.target;

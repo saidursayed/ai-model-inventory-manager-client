@@ -5,7 +5,7 @@ import { Link } from "react-router";
 const ModelCard = ({ model }) => {
   const { _id, name, image, framework, useCase, description } = model;
   return (
-    <div className="h-full">
+    <div className="h-full" data-aos="zoom-in-up"> 
       <div className="card bg-base-100 dark:bg-[#0F172A] shadow-md rounded-none flex flex-col h-full   hover:scale-102 hover:shadow-2xl transition-all duration-300">
         <figure className="h-48 flex items-center justify-center bg-gray-50">
           <img

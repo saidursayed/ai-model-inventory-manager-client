@@ -1,20 +1,23 @@
 import React from "react";
 import { Link } from "react-router";
-import { FaGithub, FaTwitter, FaLinkedin, FaRobot, FaFacebook } from "react-icons/fa";
-import logo from "../../assets/logo.png"
+import {
+  FaGithub,
+  FaTwitter,
+  FaLinkedin,
+  FaRobot,
+  FaFacebook,
+} from "react-icons/fa";
+import logo from "../../assets/logo.png";
 import { FaX } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="relative z-50 bg-[#F8FAFC] dark:bg-[#0B102B] text-slate-700 dark:text-slate-300">
+    <footer className="relative z-40 bg-[#F8FAFC] dark:bg-[#0B102B] text-slate-700 dark:text-slate-300">
       <div className="max-w-7xl mx-auto px-6 py-16">
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-
           <div className="space-y-4">
             <div className="text-2xl font-bold text-slate-800 dark:text-white">
               <img className="h-12 md:h-14" src={logo} alt="" />
-              {/* <span>AI Model Inventory</span> */}
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Manage, explore, and organize your AI models in one platform.
@@ -30,7 +33,6 @@ const Footer = () => {
               <a className="p-2 rounded-lg bg-white dark:bg-[#111633] shadow hover:shadow-xl hover:scale-105 transition transform duration-300">
                 <FaLinkedin size={18} />
               </a>
-              
             </div>
           </div>
 
@@ -58,14 +60,13 @@ const Footer = () => {
                 My Models
               </Link>
               <Link
-                to="/purchased-models"
+                to="/my-purchased-models"
                 className="hover:text-[#8B3DFF] transition duration-200"
               >
                 Purchased Models
               </Link>
             </div>
           </div>
-
 
           <div>
             <h6 className="font-semibold text-slate-800 dark:text-white text-base md:text-lg mb-4">
@@ -78,13 +79,14 @@ const Footer = () => {
               <a className="hover:text-[#8B3DFF] transition cursor-pointer">
                 Model Deployment
               </a>
-              <a className="hover:text-[#8B3DFF] transition cursor-pointer">Data Annotation</a>
+              <a className="hover:text-[#8B3DFF] transition cursor-pointer">
+                Data Annotation
+              </a>
               <a className="hover:text-[#8B3DFF] transition cursor-pointer">
                 Analytics & Reporting
               </a>
             </div>
           </div>
-
 
           <div>
             <h6 className="font-semibold text-slate-800 dark:text-white text-base md:text-lg mb-4">
@@ -113,7 +115,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
 
         <div className="border-t border-slate-200 dark:border-slate-800 mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm">

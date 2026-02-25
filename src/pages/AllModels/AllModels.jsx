@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useLoaderData } from "react-router";
 import ModelCard from "../../components/ModelCard/ModelCard";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const AllModels = () => {
   const data = useLoaderData();
